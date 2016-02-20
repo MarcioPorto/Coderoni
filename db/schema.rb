@@ -100,10 +100,10 @@ ActiveRecord::Schema.define(version: 20160220144150) do
     t.integer  "savings_plan_amount"
     t.boolean  "external_investments",        default: false
     t.integer  "external_investments_amount"
-    t.integer  "goal_amount",                 default: 200000
+    t.integer  "goal_amount",                 default: 120000
     t.integer  "age",                         default: 0
-    t.integer  "initial_contribution",        default: 5000
-    t.integer  "monthly_increment",           default: 500
+    t.integer  "initial_contribution",        default: 2000
+    t.integer  "monthly_increment",           default: 300
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
