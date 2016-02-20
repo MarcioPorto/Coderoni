@@ -67,31 +67,50 @@ College.create(
 # )
 
 Scholarship.create(
-	name: '',
-    amount: 
+	name: 'American Association of University Women Scholarships (AAUW)',
+    amount: 18000,
+    description: 'Must major in Computer/Information Science (M.S.), Engineering (M.E., M.S.) or Mathematics/Statistics (M.S.). Must demonstrate academic excellence. Must demonstrate financial need.',
+    url: 'https://aauw.scholarsapply.org/pdf/AAUW-SPF-Instructions.pdf'
 )
 
 Scholarship.create(
-	name: '',
-    amount: 
+	name: 'DR. NANCY FOSTER SCHOLARSHIP PROGRAM',
+    amount: 42000,
+    description: '',
+    url: ''
 )
 
 Scholarship.create(
-	name: '',
-    amount: 
+	name: 'ENGINEERING AND TECHNICAL SCIENCE ACHIEVEMENT SCHOLARSHIPS',
+    amount: 2000,
+    description: '',
+    url: ''
 )
 
 Scholarship.create(
-	name: '',
-    amount: 
+	name: 'GOOGLE ANITA BORG MEMORIAL SCHOLARSHIP',
+    amount: 10000,
+    description: '',
+    url: ''
 )
 
 Scholarship.create(
-	name: '',
-    amount: 
+	name: 'PALANTIR SCHOLARSHIP FOR WOMEN IN TECHNOLOGY',
+    amount: 10000,
+    description: '',
+    url: ''
 )
 
 Scholarship.create(
-	name: '',
-    amount: 
+	name: 'SOCIETY OF WOMEN ENGINEERS SCHOLARSHIPS (SWE)',
+    amount: 10000,
+    description: '',
+    url: ''
+)
+
+Scholarship.create(
+    name: 'WOMEN IN TECHNOLOGY SCHOLARSHIP (WITS)',
+    amount: 2500,
+    description: '',
+    url: ''
 )

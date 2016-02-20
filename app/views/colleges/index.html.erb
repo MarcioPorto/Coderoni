@@ -58,4 +58,12 @@
 
 <br>
 
+<% @scholarships.each do |scholarship| %>
+  <%= scholarship.name %>
+  <%= scholarship.amount %>
+  <br>
+<% end %>
+
+<br>
+
 <%= link_to 'New College', new_college_path %>

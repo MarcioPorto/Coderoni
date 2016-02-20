@@ -2,48 +2,142 @@
 
 <div class="row">
 	<div class="text-center">
-		<div style="width:60%">
+		<div style="width:100%">
 			<div>
-				<canvas id="canvas" height="450" width="600"></canvas>
+				<canvas id="canvas" height="400" width="800"></canvas>
 			</div>
 		</div>
 	</div>
 </div>
 
 <script>
-	var randomScalingFactor = function(){ return Math.round(Math.random()*100)};
-	var years = [];
+	
+	var age = 5;
+	var totalSavings = 0;
 
-	var lineChartData = {
-		labels : ["2016","2017","March","April","May","June","July"],
+	var createLabels = function() {
+		var labels = [];
+		var i = age;
+		var year = new Date().getFullYear();
+		while (j <= 0) {
+			labels.push("")
+			j = j + 1;
+		}
+		while (i <= 18) {
+			while (j <= 0) {
+				labels.push("")
+				j = j + 1;
+			}
+			var year_string = (year + (i - age)).toString();
+			labels.push(year_string);
+			console.log(year_string);
+			i = i + 1;
+			var j = 0;
+		}
+		return labels;
+	};
+
+	var getInterestRate = function(month) {
+
+		var interest_rate = 0;
+
+		if (month <= 60) {
+			interest_rate = 0.0628;
+		} else if (month <= 120) {
+			interest_rate = 0.0552;
+		} else if (month <= 180) {
+			interest_rate = 0.0371;
+		} else if (month <= 216) {
+			interest_rate = 0.0340;
+		}
+
+		return interest_rate;
+
+	};
+
+	var savingsFunction = function(initial_contribution, monthly_increment) {
+
+		var data = [];
+		var interest_rate = 0;
+		var month = age * 12;
+
+		while (data.length <= ((18 - age) * 12)) {
+			interest_rate = getInterestRate(month);
+
+			if (totalSavings == 0) {
+				totalSavings = Math.round((initial_contribution * (1 + (interest_rate/12))) + monthly_increment);
+			} else {
+				totalSavings = Math.round((totalSavings * (1 + (interest_rate/12))) + monthly_increment);
+			}
+			if (month % 6 == 0) {
+				data.push(totalSavings);
+			} 
+
+			month = month + 1;
+		}
+		
+		return data;
+
+	};
+
+	var data = {
+		labels : createLabels(),
 		datasets : [
 			{
-				label: "My First dataset",
-				fillColor : "rgba(220,220,220,0.2)",
-				strokeColor : "rgba(220,220,220,1)",
-				pointColor : "rgba(220,220,220,1)",
-				pointStrokeColor : "#fff",
-				pointHighlightFill : "#fff",
-				pointHighlightStroke : "rgba(220,220,220,1)",
-				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
-			},
-			{
-				label: "My Second dataset",
+				label: "My Portfolio",
 				fillColor : "rgba(151,187,205,0.2)",
 				strokeColor : "rgba(151,187,205,1)",
 				pointColor : "rgba(151,187,205,1)",
 				pointStrokeColor : "#fff",
 				pointHighlightFill : "#fff",
 				pointHighlightStroke : "rgba(151,187,205,1)",
-				data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+				data : savingsFunction(5000, 500)
 			}
 		]
 	}
 
-window.onload = function(){
+	// window.onload = function(){
+	// 	var ctx = document.getElementById("canvas").getContext("2d");
+	// 	window.myLine = new Chart(ctx).Line(lineChartData, {
+	// 		responsive: true,
+	// 		lineAtIndex: 2
+	// 	});
+	// }
+
 	var ctx = document.getElementById("canvas").getContext("2d");
-	window.myLine = new Chart(ctx).Line(lineChartData, {
-		responsive: true
+	Chart.types.Line.extend({
+	    name: "LineWithLine",
+	    initialize: function () {
+	        Chart.types.Line.prototype.initialize.apply(this, arguments);
+	    },
+	    draw: function () {
+	        Chart.types.Line.prototype.draw.apply(this, arguments);
+
+	        var point = this.datasets[0].points[this.options.lineAtIndex]
+	        var scale = this.scale
+	        console.log(this);
+
+	        // draw line
+	        this.chart.ctx.beginPath();
+	        this.chart.ctx.moveTo(scale.startPoint+12, point.y);
+	        this.chart.ctx.strokeStyle = '#ff0000';
+	        this.chart.ctx.lineTo(this.chart.width, point.y);
+	        this.chart.ctx.stroke();
+
+	        // write TODAY
+	        this.chart.ctx.textAlign = 'center';
+	        this.chart.ctx.fillText("Goal", scale.startPoint + 60, point.y+15);
+	    }
 	});
-}
+
+	new Chart(ctx).LineWithLine(data, {
+	    datasetFill : true,
+	    lineAtIndex: 20,
+	    scaleOverride : true,
+        scaleSteps : 20,
+        scaleStepWidth : 10000,
+        scaleStartValue : 0,
+        responsive: true
+	});
+
 </script>

@@ -41,9 +41,11 @@ ActiveRecord::Schema.define(version: 20160220051417) do
 
   create_table "scholarships", force: :cascade do |t|
     t.string   "name"
-    t.float    "amount"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "amount"
+    t.text     "description"
+    t.string   "url"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "students", force: :cascade do |t|
@@ -71,25 +73,29 @@ ActiveRecord::Schema.define(version: 20160220051417) do
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
-    t.string   "email",                    default: "",    null: false
-    t.string   "encrypted_password",       default: "",    null: false
+    t.string   "email",                       default: "",    null: false
+    t.string   "encrypted_password",          default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",            default: 0,     null: false
+    t.integer  "sign_in_count",               default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.string   "city"
     t.string   "state"
     t.integer  "current_income"
     t.float    "current_savings_amount"
     t.float    "max_amount_spare_today"
     t.float    "max_amount_spare_monthly"
-    t.boolean  "premium",                  default: false
+    t.boolean  "premium",                     default: false
+    t.boolean  "savings_plan",                default: false
+    t.integer  "savings_plan_amount"
+    t.boolean  "external_investments",        default: false
+    t.integer  "external_investments_amount"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

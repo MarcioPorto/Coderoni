@@ -6,6 +6,7 @@ class CollegesController < ApplicationController
   # GET /colleges.json
   def index
     @colleges = College.all
+    @scholarships = Scholarship.all
   end
 
   # GET /colleges/1
