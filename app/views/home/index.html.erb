@@ -9,22 +9,21 @@
         <div class="container popover-markup" id="sign-up">
             <a class="home-buttons sign-up need-expansion trigger btn btn-primary btn-login signup-cursor top-for-sign-up" href="#">Sign Up</a>
             <div class="content hide">
-                <form action="signup.php" method="post">
-                    <div class="form-group">
-                        <label for="name">First Name</label>
-                        <input class="form-control" id="signup-cursor" name="first_name" placeholder="First name" type="text"> 
-                        <label for="name">Last Name</label> 
-                        <input class="form-control" name=
-                        "last_name" placeholder="Last name" type="text"> 
-                        <label for="email">Email address:</label> <input class="form-control" name="email" placeholder="user@macalester.edu" type="text"> 
-                        <label for="pwd">Password:</label>
-                        <input class="form-control" id="pwd" name="password" type="password"> 
-                        <label for="pwd">Reenter Password:</label> 
-                        <input class="form-control" id="pwd" type="password"> <label for="termsofuse">I agree to the<a href="google.com">terms of use</a>.</label> 
-                        <input name="vehicle" type="checkbox" value="agree">
-                    </div>
-                    <button class="btn btn-default btn-block" type="submit">Submit</button>
-                </form>
+                <%= simple_form_for(:user, :url => session_path(:user))  do |f| %>
+                  <%= f.error_notification %>
+
+                  <div class="form-inputs">
+                    <%= f.input :first_name, required: true, autofocus: true, placeholder: 'First name' %>
+                    <%= f.input :last_name, required: true, autofocus: true, placeholder: 'Last name' %>
+                    <%= f.input :email, required: true, autofocus: true, placeholder: 'user@macalester.edu' %>
+                    <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length) %>
+                    <%= f.input :password_confirmation, required: true %>
+                  </div>
+
+                  <div class="form-actions">
+                    <%= f.button :submit, "Sign up" %>
+                  </div>
+                <% end %>
             </div>
         </div>
     </div>
@@ -36,14 +35,16 @@
         <div class="container popover-markup" id="sign-up">
             <a class="home-buttons sign-up need-expansion trigger btn btn-primary btn-login login-cursor top-for-sign-in" href="#">Log In</a>
             <div class="content hide">
-                <form action="login.php" method="post">
-                    <div class="form-group">
-                        <label for="email">Email address:</label> 
-                        <input class="form-control" name="email" placeholder="user@macalester.edu" type="text" id="login-cursor"> 
-                        <label for="pwd">Password:</label> 
-                        <input class="form-control" id="pwd" name="password" type="password">
-                    </div><button class="btn btn-default btn-block" type="submit">Submit</button>
-                </form>
+                <%= simple_form_for(:user, :url => session_path(:user)) do |f| %>
+                  <div class="form-inputs">
+                    <%= f.input :email, required: true, autofocus: true, placeholder: 'user@macalester.edu' %>
+                    <%= f.input :password, required: true %>
+                  </div>
+
+                  <div class="form-actions">
+                    <%= f.button :submit, "Log in" %>
+                  </div>
+                <% end %>
             </div>
         </div>
     </div>
