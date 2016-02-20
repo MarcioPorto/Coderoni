@@ -8,8 +8,10 @@ Rails.application.routes.draw do
 
   get 'premium', to: 'planning#premium'
   get 'my_plan', to: 'planning#my_plan'
-  get 'my_portfolio', to: 'planning#my_portfolio'
   get 'savings_crash_course', to: 'planning#crash_course'
+
+  #get 'my_portfolio', to: 'planning#my_portfolio'
+  post "planning/my_portfolio"
 
   resources :students
   resources :colleges

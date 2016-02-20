@@ -10,80 +10,31 @@
 		</div>
 	</div>
 	<div class="col-md-3">
-		<form>
-            <div class="form-group">
-                <label for="name">Goal Amount</label>
-                <input class="form-control" id="goal" type="text" value="160000"> 
-                <br>
-                <label for="name">Initial Contribution</label> 
-                <input class="form-control" id="initial_contribution" type="text" value="5000">
-                <br>
-                <label for="name">Monthly Contribution</label> 
-                <input class="form-control" id="monthly_increment" type="text" value="500">
-                <br>
-                <label for="name">Student's Age</label> 
-                <input class="form-control" id="age" type="text" value="0"> 
-                <br>
-                <button class="btn btn-default" id="update_button" type="button">Update</button>
-            </div>
-        </form>
+		<%= simple_form_for(current_user, :url => planning_my_portfolio_path, :method => :POST) do |f| %>
+          <%= f.error_notification %>
+
+          <div class="form-inputs">
+            <%= f.input :goal_amount, autofocus: true, placeholder: 'Goal Amount' %>
+            <%= f.input :initial_contribution, autofocus: true, placeholder: 'Initial Contribution' %>
+            <%= f.input :monthly_increment, autofocus: true, label: "Monthly Increments" %>
+            <%= f.input :age, autofocus: true, label: "Student's age" %>
+          </div>
+
+          <div class="form-actions">
+            <%= f.button :submit, "Update" %>
+          </div>
+        <% end %>
 	</div>
 </div>
 
 <script>
 
-	var goal_amount = 240000;
-	var age = 0;
-	var initial_contribution = 5000;
-	var monthly_increment = 500;
+	var goal_amount = <%= current_user.goal_amount %>;
+	var age = <%= current_user.age %>;
+	var initial_contribution = <%= current_user.initial_contribution %>;
+	var monthly_increment = <%= current_user.monthly_increment %>;
 
 	var totalSavings = 0;
-
-	$("#update_button").click(function() {
- 
- 	    goal_amount = document.getElementById('goal').value;
-	    initial_contribution = document.getElementById('initial_contribution').value;
-	    monthly_increment = document.getElementById('monthly_increment').value;
-	    age = document.getElementById('age').value;
-
-	    console.log(goal_amount);
-	    console.log(initial_contribution);
-
-	    totalSavings = 0;
-
-	    updateGraph();
-
-    });
-
-	// $('.form-control').each(function() {
-	//    var elem = $(this);
-
-	//    // Save current value of element
-	//    elem.data('oldVal', elem.val());
-
-	//    // Look for changes in the value
-	//    elem.bind("propertychange change click keyup input paste", function(event){
-	//       // If value has changed...
-	//       if (elem.data('oldVal') != elem.val()) {
-	//        // Updated stored value
-	//        elem.data('oldVal', elem.val());
-
-	//        // Input changed! Do something!
-	//        goal_amount = document.getElementById('goal').value;
-	//        initial_contribution = document.getElementById('initial_contribution').value;
-	//        monthly_increment = document.getElementById('monthly_increment').value;
-	//        age = document.getElementById('age').value;
-
-	//        console.log(goal_amount);
-	//        console.log(initial_contribution);
-
-	//        totalSavings = 0;
-
-	//        updateGraph();
-
-	//      }
-	//    });
-	//  });
 
 	var createLabels = function() {
 		var labels = [];
@@ -150,26 +101,6 @@
 	};
 
 	window.onload = function() {
-		updateGraph();
-	};
-
-	function updateGraph() {
-		var data = {
-			labels : createLabels(),
-			datasets : [
-				{
-					label: "My Portfolio",
-					fillColor : "rgba(151,187,205,0.2)",
-					strokeColor : "rgba(151,187,205,1)",
-					pointColor : "rgba(151,187,205,1)",
-					pointStrokeColor : "#fff",
-					pointHighlightFill : "#fff",
-					pointHighlightStroke : "rgba(151,187,205,1)",
-					data : savingsFunction(initial_contribution, monthly_increment)
-				}
-			]
-		}
-
 		var ctx = document.getElementById("canvas").getContext("2d");
 		Chart.types.Line.extend({
 		    name: "LineWithLine",
@@ -205,5 +136,22 @@
 	        responsive: true
 		});
 	};
+
+
+		var data = {
+			labels : createLabels(),
+			datasets : [
+				{
+					label: "My Portfolio",
+					fillColor : "rgba(151,187,205,0.2)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(151,187,205,1)",
+					data : savingsFunction(initial_contribution, monthly_increment)
+				}
+			]
+		}
 
 </script>
