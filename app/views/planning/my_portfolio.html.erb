@@ -1,0 +1,209 @@
+<h1>My Portfolio</h1>
+<hr>
+
+<div class="row">
+	<div class="col-md-9">
+		<div style="width:100%">
+			<div>
+				<canvas id="canvas" height="420" width="800"></canvas>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-3">
+		<form>
+            <div class="form-group">
+                <label for="name">Goal Amount</label>
+                <input class="form-control" id="goal" type="text" value="160000"> 
+                <br>
+                <label for="name">Initial Contribution</label> 
+                <input class="form-control" id="initial_contribution" type="text" value="5000">
+                <br>
+                <label for="name">Monthly Contribution</label> 
+                <input class="form-control" id="monthly_increment" type="text" value="500">
+                <br>
+                <label for="name">Student's Age</label> 
+                <input class="form-control" id="age" type="text" value="0"> 
+                <br>
+                <button class="btn btn-default" id="update_button" type="button">Update</button>
+            </div>
+        </form>
+	</div>
+</div>
+
+<script>
+
+	var goal_amount = 240000;
+	var age = 0;
+	var initial_contribution = 5000;
+	var monthly_increment = 500;
+
+	var totalSavings = 0;
+
+	$("#update_button").click(function() {
+ 
+ 	    goal_amount = document.getElementById('goal').value;
+	    initial_contribution = document.getElementById('initial_contribution').value;
+	    monthly_increment = document.getElementById('monthly_increment').value;
+	    age = document.getElementById('age').value;
+
+	    console.log(goal_amount);
+	    console.log(initial_contribution);
+
+	    totalSavings = 0;
+
+	    updateGraph();
+
+    });
+
+	// $('.form-control').each(function() {
+	//    var elem = $(this);
+
+	//    // Save current value of element
+	//    elem.data('oldVal', elem.val());
+
+	//    // Look for changes in the value
+	//    elem.bind("propertychange change click keyup input paste", function(event){
+	//       // If value has changed...
+	//       if (elem.data('oldVal') != elem.val()) {
+	//        // Updated stored value
+	//        elem.data('oldVal', elem.val());
+
+	//        // Input changed! Do something!
+	//        goal_amount = document.getElementById('goal').value;
+	//        initial_contribution = document.getElementById('initial_contribution').value;
+	//        monthly_increment = document.getElementById('monthly_increment').value;
+	//        age = document.getElementById('age').value;
+
+	//        console.log(goal_amount);
+	//        console.log(initial_contribution);
+
+	//        totalSavings = 0;
+
+	//        updateGraph();
+
+	//      }
+	//    });
+	//  });
+
+	var createLabels = function() {
+		var labels = [];
+		var i = age;
+		var year = new Date().getFullYear();
+		while (j <= 0) {
+			labels.push("")
+			j = j + 1;
+		}
+		while (i <= 18) {
+			while (j <= 0) {
+				labels.push("")
+				j = j + 1;
+			}
+			var year_string = (year + (i - age)).toString();
+			labels.push(year_string);
+			i = i + 1;
+			var j = 0;
+		}
+		return labels;
+	};
+
+	var getInterestRate = function(month) {
+
+		var interest_rate = 0;
+
+		if (month <= 60) {
+			interest_rate = 0.0628;
+		} else if (month <= 120) {
+			interest_rate = 0.0552;
+		} else if (month <= 180) {
+			interest_rate = 0.0371;
+		} else if (month <= 216) {
+			interest_rate = 0.0340;
+		}
+
+		return interest_rate;
+
+	};
+
+	var savingsFunction = function(initial_contribution, monthly_increment) {
+
+		var data = [];
+		var interest_rate = 0;
+		var month = age * 12;
+
+		while (data.length <= ((18 - age) * 12)) {
+			interest_rate = getInterestRate(month);
+
+			if (totalSavings == 0) {
+				totalSavings = Math.round((initial_contribution * (1 + (interest_rate/12))) + monthly_increment);
+			} else {
+				totalSavings = Math.round((totalSavings * (1 + (interest_rate/12))) + monthly_increment);
+			}
+			if (month % 6 == 0) {
+				data.push(totalSavings);
+			} 
+
+			month = month + 1;
+		}
+		
+		return data;
+
+	};
+
+	window.onload = function() {
+		updateGraph();
+	};
+
+	function updateGraph() {
+		var data = {
+			labels : createLabels(),
+			datasets : [
+				{
+					label: "My Portfolio",
+					fillColor : "rgba(151,187,205,0.2)",
+					strokeColor : "rgba(151,187,205,1)",
+					pointColor : "rgba(151,187,205,1)",
+					pointStrokeColor : "#fff",
+					pointHighlightFill : "#fff",
+					pointHighlightStroke : "rgba(151,187,205,1)",
+					data : savingsFunction(initial_contribution, monthly_increment)
+				}
+			]
+		}
+
+		var ctx = document.getElementById("canvas").getContext("2d");
+		Chart.types.Line.extend({
+		    name: "LineWithLine",
+		    initialize: function () {
+		        Chart.types.Line.prototype.initialize.apply(this, arguments);
+		    },
+		    draw: function () {
+		        Chart.types.Line.prototype.draw.apply(this, arguments);
+
+		        var point = this.datasets[0].points[this.options.lineAtIndex]
+		        var scale = this.scale
+		        console.log(this);
+
+		        // draw line
+		        this.chart.ctx.beginPath();
+		        this.chart.ctx.moveTo(scale.startPoint+12, point.y);
+		        this.chart.ctx.strokeStyle = '#ff0000';
+		        this.chart.ctx.lineTo(this.chart.width, point.y);
+		        this.chart.ctx.stroke();
+
+		        // write TODAY
+		        this.chart.ctx.textAlign = 'center';
+		        this.chart.ctx.fillText("Goal", scale.startPoint + 60, point.y+15);
+		    }
+		});
+		new Chart(ctx).LineWithLine(data, {
+		    datasetFill : true,
+		    lineAtIndex: 20,
+		    scaleOverride : true,
+	        scaleSteps : 20,
+	        scaleStepWidth : 10000,
+	        scaleStartValue : 0,
+	        responsive: true
+		});
+	};
+
+</script>

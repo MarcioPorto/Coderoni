@@ -1,143 +1,161 @@
-<h1></h1>
+<!-- Main Content -->
+<div id="Home"></div>
+<h1 id="title">uni<span id="orange">f</span>i</h1>
+<h2 id="subtitle">You <em id="orange">can</em> afford college.</h2>
 
-<div class="row">
-	<div class="text-center">
-		<div style="width:100%">
-			<div>
-				<canvas id="canvas" height="400" width="800"></canvas>
-			</div>
-		</div>
-	</div>
+<div class="row">    
+    <div style="text-align:center;">
+        <!-- Sign Up Button -->
+        <div class="container popover-markup" id="sign-up">
+            <a class="home-buttons sign-up need-expansion trigger btn btn-primary btn-login signup-cursor top-for-sign-up" href="#">Sign Up</a>
+            <div class="content hide">
+                <form action="signup.php" method="post">
+                    <div class="form-group">
+                        <label for="name">First Name</label>
+                        <input class="form-control" id="signup-cursor" name="first_name" placeholder="First name" type="text"> 
+                        <label for="name">Last Name</label> 
+                        <input class="form-control" name=
+                        "last_name" placeholder="Last name" type="text"> 
+                        <label for="email">Email address:</label> <input class="form-control" name="email" placeholder="user@macalester.edu" type="text"> 
+                        <label for="pwd">Password:</label>
+                        <input class="form-control" id="pwd" name="password" type="password"> 
+                        <label for="pwd">Reenter Password:</label> 
+                        <input class="form-control" id="pwd" type="password"> <label for="termsofuse">I agree to the<a href="google.com">terms of use</a>.</label> 
+                        <input name="vehicle" type="checkbox" value="agree">
+                    </div>
+                    <button class="btn btn-default btn-block" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br>
+
+    <div style="text-align:center;">
+        <!-- Log In Button -->
+        <div class="container popover-markup" id="sign-up">
+            <a class="home-buttons sign-up need-expansion trigger btn btn-primary btn-login login-cursor top-for-sign-in" href="#">Log In</a>
+            <div class="content hide">
+                <form action="login.php" method="post">
+                    <div class="form-group">
+                        <label for="email">Email address:</label> 
+                        <input class="form-control" name="email" placeholder="user@macalester.edu" type="text" id="login-cursor"> 
+                        <label for="pwd">Password:</label> 
+                        <input class="form-control" id="pwd" name="password" type="password">
+                    </div><button class="btn btn-default btn-block" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <br>
+    <br>
+    <br>
+
+</div>
+
+<!-- Brick Background -->
+<div id="bricks" class="override-container">
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </div>
 
 <script>
-	
-	var age = 5;
-	var totalSavings = 0;
+    /* When Sign Up or Log In is pressed opens dropdowns*/
+    $('.popover-markup>.trigger').popover({
+        html: true,
+        title: function() {
+            return $(this).parent().find('.head').html();
+        },
+        content: function() {
+            return $(this).parent().find('.content').html();
+        },
+        placement: "bottom"
+    });
 
-	var createLabels = function() {
-		var labels = [];
-		var i = age;
-		var year = new Date().getFullYear();
-		while (j <= 0) {
-			labels.push("")
-			j = j + 1;
-		}
-		while (i <= 18) {
-			while (j <= 0) {
-				labels.push("")
-				j = j + 1;
-			}
-			var year_string = (year + (i - age)).toString();
-			labels.push(year_string);
-			console.log(year_string);
-			i = i + 1;
-			var j = 0;
-		}
-		return labels;
-	};
+    /* When Sign Up is pressed, scrolls so they are the top of the page */
+    $('.sign-up').click(function() {
+        $('html, body').animate({
+            scrollTop: $('.top-for-sign-up').offset().top
+        });
+        if ($(".top").hasClass("top-for-sign-up")) {
+            $('.top').removeClass("top-for-sign-up");
+            $('.sign-up').addClass("top-for-sign-up");
+        } else {
+            $('.top').addClass("top-for-sign-up");
+            $('.sign-up').removeClass("top-for-sign-up");
+        }
+    });
 
-	var getInterestRate = function(month) {
-
-		var interest_rate = 0;
-
-		if (month <= 60) {
-			interest_rate = 0.0628;
-		} else if (month <= 120) {
-			interest_rate = 0.0552;
-		} else if (month <= 180) {
-			interest_rate = 0.0371;
-		} else if (month <= 216) {
-			interest_rate = 0.0340;
-		}
-
-		return interest_rate;
-
-	};
-
-	var savingsFunction = function(initial_contribution, monthly_increment) {
-
-		var data = [];
-		var interest_rate = 0;
-		var month = age * 12;
-
-		while (data.length <= ((18 - age) * 12)) {
-			interest_rate = getInterestRate(month);
-
-			if (totalSavings == 0) {
-				totalSavings = Math.round((initial_contribution * (1 + (interest_rate/12))) + monthly_increment);
-			} else {
-				totalSavings = Math.round((totalSavings * (1 + (interest_rate/12))) + monthly_increment);
-			}
-			if (month % 6 == 0) {
-				data.push(totalSavings);
-			} 
-
-			month = month + 1;
-		}
-		
-		return data;
-
-	};
-
-	var data = {
-		labels : createLabels(),
-		datasets : [
-			{
-				label: "My Portfolio",
-				fillColor : "rgba(151,187,205,0.2)",
-				strokeColor : "rgba(151,187,205,1)",
-				pointColor : "rgba(151,187,205,1)",
-				pointStrokeColor : "#fff",
-				pointHighlightFill : "#fff",
-				pointHighlightStroke : "rgba(151,187,205,1)",
-				data : savingsFunction(5000, 500)
-			}
-		]
-	}
-
-	// window.onload = function(){
-	// 	var ctx = document.getElementById("canvas").getContext("2d");
-	// 	window.myLine = new Chart(ctx).Line(lineChartData, {
-	// 		responsive: true,
-	// 		lineAtIndex: 2
-	// 	});
-	// }
-
-	var ctx = document.getElementById("canvas").getContext("2d");
-	Chart.types.Line.extend({
-	    name: "LineWithLine",
-	    initialize: function () {
-	        Chart.types.Line.prototype.initialize.apply(this, arguments);
-	    },
-	    draw: function () {
-	        Chart.types.Line.prototype.draw.apply(this, arguments);
-
-	        var point = this.datasets[0].points[this.options.lineAtIndex]
-	        var scale = this.scale
-	        console.log(this);
-
-	        // draw line
-	        this.chart.ctx.beginPath();
-	        this.chart.ctx.moveTo(scale.startPoint+12, point.y);
-	        this.chart.ctx.strokeStyle = '#ff0000';
-	        this.chart.ctx.lineTo(this.chart.width, point.y);
-	        this.chart.ctx.stroke();
-
-	        // write TODAY
-	        this.chart.ctx.textAlign = 'center';
-	        this.chart.ctx.fillText("Goal", scale.startPoint + 60, point.y+15);
-	    }
-	});
-
-	new Chart(ctx).LineWithLine(data, {
-	    datasetFill : true,
-	    lineAtIndex: 20,
-	    scaleOverride : true,
-        scaleSteps : 20,
-        scaleStepWidth : 10000,
-        scaleStartValue : 0,
-        responsive: true
-	});
-
+    /* Put the cursor in the first box when sign up or login is clicked */
+    $('.signup-cursor').click(function() {
+        $('#signup-cursor').focus();
+    });
+    $('.login-cursor').click(function() {
+        $('#login-cursor').focus();
+    }); 
 </script>
+
+<style type="text/css">
+/* Titles */
+#title {
+	font-size: 900%;
+	text-align: center;
+}
+
+#subtitle {
+	font-size: 300%;
+	text-align: center;
+	margin-bottom: 3%;
+}
+
+#about-title {
+	font-size: 400%;
+}
+
+#inner-about {
+	margin-right: 10%;
+	margin-left: 10%;
+}
+
+#bricks {
+	background-image: url(<%= asset_path('landing-brick.jpg') %>);
+	background-repeat: no-repeat;
+	background-size: cover;
+	height: 10%;
+}
+
+.jumbotron {
+	margin-top: 10%;
+	background-color: white;
+	width:100%;
+}
+
+
+#orange {
+	color: orange
+}
+
+.space {
+	margin-top: 5%;
+}
+
+/* Log in and Sign up */
+
+.btn-login {
+	width: 15%;
+	font-size: 30pt;
+}
+
+.sign-up-extension {
+    height: 300px;
+    background-color: white;
+}
+
+.override-container {
+    margin-left: -15vw;
+    padding-left: 15vw;
+    margin-right: -15vw;
+    padding-right: 15vw;
+}
+
+</style>

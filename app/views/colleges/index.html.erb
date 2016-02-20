@@ -1,69 +1,73 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Colleges</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Tuition cost</th>
-      <th>Room cost</th>
-      <th>Board cost</th>
-      <th>Activity fee</th>
-      <th>Off housing min</th>
-      <th>Off housing max</th>
-      <th>Textbook cost</th>
-      <th>Avg costs</th>
-      <th>Need based aid pct</th>
-      <th>Avg need based aid package</th>
-      <th>Merit based aid proportion</th>
-      <th>Merit based aid amount min</th>
-      <th>Merit based aid amount max</th>
-      <th>Save for later</th>
-      <th>Graduate income</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @colleges.each do |college| %>
-      <tr>
-        <td><%= college.name %></td>
-        <td><%= college.city %></td>
-        <td><%= college.state %></td>
-        <td><%= college.tuition_cost %></td>
-        <td><%= college.room_cost %></td>
-        <td><%= college.board_cost %></td>
-        <td><%= college.activity_fee %></td>
-        <td><%= college.off_housing_min %></td>
-        <td><%= college.off_housing_max %></td>
-        <td><%= college.textbook_cost %></td>
-        <td><%= college.avg_costs %></td>
-        <td><%= college.need_based_aid_pct %></td>
-        <td><%= college.avg_need_based_aid_package %></td>
-        <td><%= college.merit_based_aid_proportion %></td>
-        <td><%= college.merit_based_aid_amount_min %></td>
-        <td><%= college.merit_based_aid_amount_max %></td>
-        <td><%= college.save_for_later %></td>
-        <td><%= college.graduate_income %></td>
-        <td><%= link_to 'Show', college %></td>
-        <td><%= link_to 'Edit', edit_college_path(college) %></td>
-        <td><%= link_to 'Destroy', college, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
 <br>
+<!-- Main Content -->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Applications</h3>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <% @colleges.each do |college| %>
+                        <li><%= college.name %> | $<%= college.app_fee %> | Waiver? <%= bool_to_glyph(college.app_fee_waiver) %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Scholarships</h3>
+                </div>
+                <div class="panel-body">
+                    <ul>
+                        <% @scholarships.each do |scholarship| %>
+                            <li><%= link_to scholarship.name, scholarship.url %> | $<%= scholarship.amount %></li>
+                        <% end %>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
 
-<% @scholarships.each do |scholarship| %>
-  <%= scholarship.name %>
-  <%= scholarship.amount %>
-  <br>
-<% end %>
+            <% @colleges.each do |college| %>
+                <% if college.name == "New York University" %>
+                <div class="panel panel-danger">
+                <% else %>
+                <div class="panel panel-success">
+                <% end %>
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <%= link_to college.name, college %>
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-lg-4">
+                            <% if college.name == "Macalester College" %>
+                            <%= image_tag("macalester.png", :size => "200x200") %>
+                            <% elsif college.name == "Carleton College" %>
+                            <%= image_tag("carleton.png", :size => "200x200") %>
+                            <% else %>
+                            <%= image_tag("nyu.png", :size => "200x200") %>
+                            <% end %>
+                        </div>
+                        <div class="col-lg-8">
+                            
+                            <h3>Tuition: $<%= college.tuition_cost %></h3>
+                            <h3>Early Career Pay: $<%= college.early_career_pay %></h3>
+                            <h3>Mid Career Pay: $<%= college.mid_career_pay %></h3>
 
-<br>
+                        </div>
+                    </div>
+                </div>
+            <% end %>
+            
+        </div>
+    </div>
 
-<%= link_to 'New College', new_college_path %>
+    <br>
+    <br>
+    <br>
+    <br>
+
+</div>
