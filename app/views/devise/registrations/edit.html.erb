@@ -4,6 +4,21 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <%= f.input :first_name, required: true, autofocus: true %>
+    <%= f.input :last_name, required: true, autofocus: true %>
+
+    <%= f.input :city, autofocus: true %>
+    <%= f.input :state, autofocus: true %>
+    <%= f.input :current_income, autofocus: true %>
+    <%= f.input :current_savings_amount, autofocus: true %>
+    <%= f.input :max_amount_spare_today, autofocus: true %>
+    <%= f.input :max_amount_spare_monthly, autofocus: true %>
+
+    <%= f.input :savings_plan, autofocus: true %>
+    <%= f.input :savings_plan_amount, autofocus: true %>
+    <%= f.input :external_investments, autofocus: true %>
+    <%= f.input :external_investments_amount, autofocus: true %>
+
     <%= f.input :email, required: true, autofocus: true %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>

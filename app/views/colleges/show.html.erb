@@ -1,0 +1,94 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @college.name %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @college.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @college.state %>
+</p>
+
+<p>
+  <strong>Tuition cost:</strong>
+  <%= @college.tuition_cost %>
+</p>
+
+<p>
+  <strong>Room cost:</strong>
+  <%= @college.room_cost %>
+</p>
+
+<p>
+  <strong>Board cost:</strong>
+  <%= @college.board_cost %>
+</p>
+
+<p>
+  <strong>Activity fee:</strong>
+  <%= @college.activity_fee %>
+</p>
+
+<p>
+  <strong>Off housing min:</strong>
+  <%= @college.off_housing_min %>
+</p>
+
+<p>
+  <strong>Off housing max:</strong>
+  <%= @college.off_housing_max %>
+</p>
+
+<p>
+  <strong>Textbook cost:</strong>
+  <%= @college.textbook_cost %>
+</p>
+
+<p>
+  <strong>Avg costs:</strong>
+  <%= @college.avg_costs %>
+</p>
+
+<p>
+  <strong>Need based aid pct:</strong>
+  <%= @college.need_based_aid_pct %>
+</p>
+
+<p>
+  <strong>Avg need based aid package:</strong>
+  <%= @college.avg_need_based_aid_package %>
+</p>
+
+<p>
+  <strong>Merit based aid proportion:</strong>
+  <%= @college.merit_based_aid_proportion %>
+</p>
+
+<p>
+  <strong>Merit based aid amount min:</strong>
+  <%= @college.merit_based_aid_amount_min %>
+</p>
+
+<p>
+  <strong>Merit based aid amount max:</strong>
+  <%= @college.merit_based_aid_amount_max %>
+</p>
+
+<p>
+  <strong>Save for later:</strong>
+  <%= @college.save_for_later %>
+</p>
+
+<p>
+  <strong>Graduate income:</strong>
+  <%= @college.graduate_income %>
+</p>
+
+<%= link_to 'Edit', edit_college_path(@college) %> |
+<%= link_to 'Back', colleges_path %>

@@ -1,0 +1,41 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  city: MyString
+  state: MyString
+  tuition_cost: 1
+  room_cost: 1
+  board_cost: 1
+  activity_fee: 1
+  off_housing_min: 1
+  off_housing_max: 1
+  textbook_cost: 1
+  avg_costs: 1
+  need_based_aid_pct: 1.5
+  avg_need_based_aid_package: 1
+  merit_based_aid_proportion: 1.5
+  merit_based_aid_amount_min: 1
+  merit_based_aid_amount_max: 1
+  save_for_later: false
+  graduate_income: 1
+
+two:
+  name: MyString
+  city: MyString
+  state: MyString
+  tuition_cost: 1
+  room_cost: 1
+  board_cost: 1
+  activity_fee: 1
+  off_housing_min: 1
+  off_housing_max: 1
+  textbook_cost: 1
+  avg_costs: 1
+  need_based_aid_pct: 1.5
+  avg_need_based_aid_package: 1
+  merit_based_aid_proportion: 1.5
+  merit_based_aid_amount_min: 1
+  merit_based_aid_amount_max: 1
+  save_for_later: false
+  graduate_income: 1

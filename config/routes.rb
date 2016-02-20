@@ -1,5 +1,19 @@
 Rails.application.routes.draw do
 
+  get 'planning/home'
+  get 'planning/premium'
+  get 'planning/my_plan'
+  get 'planning/my_portfolio'
+  get 'planning/crash_course'
+
+  get 'premium', to: 'planning#premium'
+  get 'my_plan', to: 'planning#my_plan'
+  get 'my_portfolio', to: 'planning#my_portfolio'
+  get 'savings_crash_course', to: 'planning#crash_course'
+
+  resources :students
+  resources :colleges
+  resources :scholarships
   root 'home#index'
   get 'home/index'
 

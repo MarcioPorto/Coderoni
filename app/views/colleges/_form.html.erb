@@ -1,0 +1,28 @@
+<%= simple_form_for(@college) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :city %>
+    <%= f.input :state %>
+    <%= f.input :tuition_cost %>
+    <%= f.input :room_cost %>
+    <%= f.input :board_cost %>
+    <%= f.input :activity_fee %>
+    <%= f.input :off_housing_min %>
+    <%= f.input :off_housing_max %>
+    <%= f.input :textbook_cost %>
+    <%= f.input :avg_costs %>
+    <%= f.input :need_based_aid_pct %>
+    <%= f.input :avg_need_based_aid_package %>
+    <%= f.input :merit_based_aid_proportion %>
+    <%= f.input :merit_based_aid_amount_min %>
+    <%= f.input :merit_based_aid_amount_max %>
+    <%= f.input :save_for_later %>
+    <%= f.input :graduate_income %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

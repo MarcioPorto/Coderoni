@@ -1,0 +1,57 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Students</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Age</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Gender</th>
+      <th>Ethnicity</th>
+      <th>Military</th>
+      <th>Academic interests</th>
+      <th>Gpa</th>
+      <th>Sat cr score</th>
+      <th>Sat w score</th>
+      <th>Sat m score</th>
+      <th>Act e score</th>
+      <th>Act r score</th>
+      <th>Act m score</th>
+      <th>Act s score</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @students.each do |student| %>
+      <tr>
+        <td><%= student.name %></td>
+        <td><%= student.age %></td>
+        <td><%= student.city %></td>
+        <td><%= student.state %></td>
+        <td><%= student.gender %></td>
+        <td><%= student.ethnicity %></td>
+        <td><%= student.military %></td>
+        <td><%= student.academic_interests %></td>
+        <td><%= student.gpa %></td>
+        <td><%= student.sat_cr_score %></td>
+        <td><%= student.sat_w_score %></td>
+        <td><%= student.sat_m_score %></td>
+        <td><%= student.act_e_score %></td>
+        <td><%= student.act_r_score %></td>
+        <td><%= student.act_m_score %></td>
+        <td><%= student.act_s_score %></td>
+        <td><%= link_to 'Show', student %></td>
+        <td><%= link_to 'Edit', edit_student_path(student) %></td>
+        <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Student', new_student_path %>
