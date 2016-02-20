@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>unifi - Landing</title>
+    <meta content="unifi" name="description">
+    <meta content="unifi" name="Ruthie Berman">
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <link href="css/bootswatch-flatly.css" rel="stylesheet">
+    <link href="css/landing.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Toolbar -->
+    <nav class="navbar navbar-default top">
+        <div class="container-fluid" style="border-width:1px; border-style:solid;"></div>
+    </nav>
+
+    <!-- Main Content -->
+    <div id="Home"></div>
+    <h1 id="title">uni<span id="orange">f</span>i</h1>
+    <h2 id="subtitle">You <em id="orange">can</em> afford college.</h2>
+
+    <div class="row">    
+        <div style="text-align:center;">
+            <!-- Sign Up Button -->
+            <div class="container popover-markup" id="sign-up">
+                <a class="home-buttons sign-up need-expansion trigger btn btn-primary btn-login signup-cursor top-for-sign-up" href="#">Sign Up</a>
+                <div class="content hide">
+                    <form action="signup.php" method="post">
+                        <div class="form-group">
+                            <label for="name">First Name</label>
+                            <input class="form-control" id="signup-cursor" name="first_name" placeholder="First name" type="text"> 
+                            <label for="name">Last Name</label> 
+                            <input class="form-control" name=
+                            "last_name" placeholder="Last name" type="text"> 
+                            <label for="email">Email address:</label> <input class="form-control" name="email" placeholder="user@macalester.edu" type="text"> 
+                            <label for="pwd">Password:</label>
+                            <input class="form-control" id="pwd" name="password" type="password"> 
+                            <label for="pwd">Reenter Password:</label> 
+                            <input class="form-control" id="pwd" type="password"> <label for="termsofuse">I agree to the<a href="google.com">terms of use</a>.</label> 
+                            <input name="vehicle" type="checkbox" value="agree">
+                        </div>
+                        <button class="btn btn-default btn-block" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <br>
+
+        <div style="text-align:center;">
+            <!-- Log In Button -->
+            <div class="container popover-markup" id="sign-up">
+                <a class="home-buttons sign-up need-expansion trigger btn btn-primary btn-login login-cursor top-for-sign-in" href="#">Log In</a>
+                <div class="content hide">
+                    <form action="login.php" method="post">
+                        <div class="form-group">
+                            <label for="email">Email address:</label> 
+                            <input class="form-control" name="email" placeholder="user@macalester.edu" type="text" id="login-cursor"> 
+                            <label for="pwd">Password:</label> 
+                            <input class="form-control" id="pwd" name="password" type="password">
+                        </div><button class="btn btn-default btn-block" type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+
+    </div>
+
+    <!-- Brick Background -->
+    <div id="bricks">
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    </div>
+
+    <!-- Footer -->
+    <nav class="navbar-default" style="bottom:0; position:fixed; width:100%;">
+        <div class="container-fluid" style="border-width:1px; border-style:solid;">
+            <div class="active navbar-brand" style="font-size:14px">&copy; 2016 unifi. All rights reserved.</div>
+        </div>
+    </nav>
+</body>
+
+<script>
+    /* When Sign Up or Log In is pressed opens dropdowns*/
+    $('.popover-markup>.trigger').popover({
+        html: true,
+        title: function() {
+            return $(this).parent().find('.head').html();
+        },
+        content: function() {
+            return $(this).parent().find('.content').html();
+        },
+        placement: "bottom"
+    });
+
+    /* When Sign Up is pressed, scrolls so they are the top of the page */
+    $('.sign-up').click(function() {
+        $('html, body').animate({
+            scrollTop: $('.top-for-sign-up').offset().top
+        });
+        if ($(".top").hasClass("top-for-sign-up")) {
+            $('.top').removeClass("top-for-sign-up");
+            $('.sign-up').addClass("top-for-sign-up");
+        } else {
+            $('.top').addClass("top-for-sign-up");
+            $('.sign-up').removeClass("top-for-sign-up");
+        }
+    });
+
+    /* Put the cursor in the first box when sign up or login is clicked */
+    $('.signup-cursor').click(function() {
+        $('#signup-cursor').focus();
+    });
+    $('.login-cursor').click(function() {
+        $('#login-cursor').focus();
+    }); 
+</script>
+
+</html>
