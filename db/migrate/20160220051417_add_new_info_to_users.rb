@@ -12,7 +12,7 @@ class AddNewInfoToUsers < ActiveRecord::Migration
     add_column :users, :external_investments, :boolean, default: false
     add_column :users, :external_investments_amount, :integer
 
-    add_column :users, :goal_amount, :integer, default: 200000
+    add_column :users, :goal_amount, :integer, default: 170000
     add_column :users, :age, :integer, default: 0
     add_column :users, :initial_contribution, :integer, default: 5000
     add_column :users, :monthly_increment, :integer, default: 500

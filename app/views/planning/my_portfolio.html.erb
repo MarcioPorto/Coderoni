@@ -100,9 +100,9 @@
 
 	};
 
-	window.onload = function() {
-		var ctx = document.getElementById("canvas").getContext("2d");
-		Chart.types.Line.extend({
+	var ctx = document.getElementById("canvas").getContext("2d");
+
+	Chart.types.Line.extend({
 		    name: "LineWithLine",
 		    initialize: function () {
 		        Chart.types.Line.prototype.initialize.apply(this, arguments);
@@ -128,30 +128,29 @@
 		});
 		new Chart(ctx).LineWithLine(data, {
 		    datasetFill : true,
-		    lineAtIndex: 20,
+		    lineAtIndex: 35,
 		    scaleOverride : true,
 	        scaleSteps : 20,
 	        scaleStepWidth : 10000,
 	        scaleStartValue : 0,
 	        responsive: true
 		});
-	};
 
 
-		var data = {
-			labels : createLabels(),
-			datasets : [
-				{
-					label: "My Portfolio",
-					fillColor : "rgba(151,187,205,0.2)",
-					strokeColor : "rgba(151,187,205,1)",
-					pointColor : "rgba(151,187,205,1)",
-					pointStrokeColor : "#fff",
-					pointHighlightFill : "#fff",
-					pointHighlightStroke : "rgba(151,187,205,1)",
-					data : savingsFunction(initial_contribution, monthly_increment)
-				}
-			]
-		}
+	var data = {
+		labels : createLabels(),
+		datasets : [
+			{
+				label: "My Portfolio",
+				fillColor : "rgba(151,187,205,0.2)",
+				strokeColor : "rgba(151,187,205,1)",
+				pointColor : "rgba(151,187,205,1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(151,187,205,1)",
+				data : savingsFunction(initial_contribution, monthly_increment)
+			}
+		]
+	}
 
 </script>
