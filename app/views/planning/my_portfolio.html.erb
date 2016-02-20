@@ -100,56 +100,60 @@
 
 	};
 
-	var ctx = document.getElementById("canvas").getContext("2d");
+    var data = {
+        labels : createLabels(),
+        datasets : [
+            {
+                label: "My Portfolio",
+                fillColor : "rgba(151,187,205,0.2)",
+                strokeColor : "rgba(151,187,205,1)",
+                pointColor : "rgba(151,187,205,1)",
+                pointStrokeColor : "#fff",
+                pointHighlightFill : "#fff",
+                pointHighlightStroke : "rgba(151,187,205,1)",
+                data : savingsFunction(initial_contribution, monthly_increment)
+            }
+        ]
+    }
 
-	Chart.types.Line.extend({
-		    name: "LineWithLine",
-		    initialize: function () {
-		        Chart.types.Line.prototype.initialize.apply(this, arguments);
-		    },
-		    draw: function () {
-		        Chart.types.Line.prototype.draw.apply(this, arguments);
+    var ctx = document.getElementById("canvas").getContext("2d");
+    
+    Chart.types.Line.extend({
+        name: "LineWithLine",
+        initialize: function () {
+            Chart.types.Line.prototype.initialize.apply(this, arguments);
+        },
+        draw: function () {
+            Chart.types.Line.prototype.draw.apply(this, arguments);
 
-		        var point = this.datasets[0].points[this.options.lineAtIndex]
-		        var scale = this.scale
-		        console.log(this);
+            var point = this.datasets[0].points[this.options.lineAtIndex]
+            var scale = this.scale
+            console.log(this);
 
-		        // draw line
-		        this.chart.ctx.beginPath();
-		        this.chart.ctx.moveTo(scale.startPoint+12, point.y);
-		        this.chart.ctx.strokeStyle = '#ff0000';
-		        this.chart.ctx.lineTo(this.chart.width, point.y);
-		        this.chart.ctx.stroke();
+            // draw line
+            this.chart.ctx.beginPath();
+            this.chart.ctx.moveTo(scale.startPoint+12, point.y);
+            this.chart.ctx.strokeStyle = '#ff0000';
+            this.chart.ctx.lineTo(this.chart.width, point.y);
+            this.chart.ctx.stroke();
 
-		        // write TODAY
-		        this.chart.ctx.textAlign = 'center';
-		        this.chart.ctx.fillText("Goal", scale.startPoint + 60, point.y+15);
-		    }
-		});
-		new Chart(ctx).LineWithLine(data, {
-		    datasetFill : true,
-		    lineAtIndex: 35,
-		    scaleOverride : true,
-	        scaleSteps : 20,
-	        scaleStepWidth : 10000,
-	        scaleStartValue : 0,
-	        responsive: true
-		});
+            // write TODAY
+            this.chart.ctx.textAlign = 'center';
+            this.chart.ctx.fillText("Goal", scale.startPoint + 60, point.y+15);
+        }
+    });
 
-	var data = {
-		labels : createLabels(),
-		datasets : [
-			{
-				label: "My Portfolio",
-				fillColor : "rgba(151,187,205,0.2)",
-				strokeColor : "rgba(151,187,205,1)",
-				pointColor : "rgba(151,187,205,1)",
-				pointStrokeColor : "#fff",
-				pointHighlightFill : "#fff",
-				pointHighlightStroke : "rgba(151,187,205,1)",
-				data : savingsFunction(initial_contribution, monthly_increment)
-			}
-		]
-	}
+    new Chart(ctx).LineWithLine(data, {
+        datasetFill : true,
+        lineAtIndex: 35,
+        scaleOverride : true,
+        scaleSteps : 20,
+        scaleStepWidth : 10000,
+        scaleStartValue : 0,
+        responsive: true
+    });
+
+
+		
 
 </script>
